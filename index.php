@@ -1,146 +1,112 @@
 <?php
 	//Задание 1
-	$a = rand(-100, 100);
-    $b = rand(-100, 100);
-	echo "a = $a, b = $b<br/>";
-	if($a >= 0 && $b >= 0) {
-		echo "Разность $a и $b = ".($a - $b);
-	}
-	if($a < 0 && $b < 0) {
-		echo "Произведение $a и $b = ".($a * $b);
-	}
-	if($a * $b < 0) {
-		echo "Сумма $a и $b = ".($a + $b);
+	$i = 0;
+	while($i <= 100) {
+		if($i % 3 == 0) {
+			echo "$i<br/>";
+		}
+		$i++;
 	}
 	
 	//Задание 2
 	echo "<hr/>";
-	$a = rand(0, 15);
-	echo "Число a = $a<br/>";
-	switch($a) {
-		case 0:
-			echo "0,";
-		case 1:
-			echo "1,";
-		case 2:
-			echo "2,";
-		case 3:
-			echo "3,";
-		case 4:
-			echo "4,";
-		case 5:
-			echo "5,";
-		case 6:
-			echo "6,";
-		case 7:
-			echo "7,";
-		case 8:
-			echo "8,";
-		case 9:
-			echo "9,";
-		case 10:
-			echo "10,";
-		case 11:
-			echo "11,";
-		case 12:
-			echo "12,";
-		case 13:
-			echo "13,";
-		case 14:
-			echo "14,";
-		default:
-			echo "15";
+	$i = 0;
+	do {
+		if($i == 0) {
+			echo "$i - это ноль.<br/>";
+		} else if($i % 2 == 0) {
+			echo "$i - это четное число.<br/>";
+		} else {
+			echo "$i - это нечетное число.<br/>";
+		}
+		$i++;
+	} while($i <= 10);
+	
+	//Задание 3
+	echo "<hr/>";
+	$regions = ['Хабаровский край' => ['Хабаровск', 'Комсомольск-на-Амуре', 'Амурск'],
+		'Московская область' => ['Москва', 'Зеленоград', 'Клин'],
+		'Ленинградская область' => ['Санкт-Петербург', 'Всеволжск', 'Павловск', 'Кронштадт']];
+	foreach($regions as $region => $cities) {
+		$str = implode(', ', $cities).".";
+		echo "$region:<br/>$str<br/>";
 	}
 	
-	//Задания 3 и 4
+	//Задание 4
 	echo "<hr/>";
 	
-	function add($a, $b) {
-		return $a + $b;
+	function translit($str) {
+		$converter = [
+			'а' => 'a',   'б' => 'b',   'в' => 'v',
+			'г' => 'g',   'д' => 'd',   'е' => 'e',
+			'ё' => 'e',   'ж' => 'zh',  'з' => 'z',
+			'и' => 'i',   'й' => 'y',   'к' => 'k',
+			'л' => 'l',   'м' => 'm',   'н' => 'n',
+			'о' => 'o',   'п' => 'p',   'р' => 'r',
+			'с' => 's',   'т' => 't',   'у' => 'u',
+			'ф' => 'f',   'х' => 'h',   'ц' => 'c',
+			'ч' => 'ch',  'ш' => 'sh',  'щ' => 'sch',
+			'ь' => '\'',  'ы' => 'y',   'ъ' => '\'',
+			'э' => 'e',   'ю' => 'yu',  'я' => 'ya'];
+		return strtr(mb_strtolower($str), $converter);	//Чтобы не делать большой массив, строку приводим к нижнему регистру
 	}
 	
-	function sub($a, $b) {
-		return $a - $b;
+	echo translit("Антон Юрьевич Лошманов");
+	
+	//Задание 5
+	echo "<hr/>";
+	
+	function replaceSpacesWithUnderscore($str) {
+		return str_replace(" ", "_", $str);
 	}
 	
-	function mul($a, $b) {
-		return $a * $b;
-	}
-	
-	function div($a, $b) {
-		return $a / $b;
-	}
-	
-	function mathOperation($arg1, $arg2, $operation) {
-		switch($operation) {
-			case "add":
-				echo "Сумма: ".add($arg1, $arg2)."</br>";
-				break;
-			case "sub":
-				echo "Разность: ".sub($arg1, $arg2)."</br>";
-				break;
-			case "mul":
-				echo "Произведение: ".mul($arg1, $arg2)."</br>";
-				break;
-			case "div":
-				echo "Частное: ".div($arg1, $arg2)."</br>";
-				break;
-			default:
-				echo "Error";
-		}
-	}
-	$operand1 = rand(-100, 100);
-	$operand2 = rand(-100, 100);
-	echo "Операнды: $operand1 и $operand2</br>";
-	mathOperation($operand1, $operand2, "add");
-	mathOperation($operand1, $operand2, "sub");
-	mathOperation($operand1, $operand2, "mul");
-	mathOperation($operand1, $operand2, "div");
-	mathOperation($operand1, $operand2, "adds");
+	echo replaceSpacesWithUnderscore("Антон Юрьевич Лошманов");
 	
 	//Задание 6
 	echo "<hr/>";
-	
-	function power($val, $pow) {
-		$t;
-		if($pow % 2 == 0) {
-			$t = 1;
+	$menu = ['Курсы' => ['Программирование' => 'https://geekbrains.ru/courses/14', 'Web-дизайн' => 'https://geekbrains.ru/courses/484'],
+		'Вебинары' => ['Создание сайта за час' => 'https://geekbrains.ru/events/741', 'Создание игры на Android' => 'https://geekbrains.ru/events/682'],
+		'Форум' => 'https://geekbrains.ru/topics'];
+	$str = "<ul>";
+	foreach($menu as $item => $subitem) {
+		if(is_array($subitem)) {
+			$str .= "<li>$item</li><ul>";
+			foreach($subitem as $iitem => $ssubitem) {
+				$str .= "<a href=$ssubitem><li>$iitem</li></a>";
+			}
+			$str .= "</ul>";
 		} else {
-			$t = $val;
-		}
-		if($pow == 1) {
-			return $val;
-		} else {
-			return $t * pow(power($val, (int)($pow / 2)), 2); 
+			$str .= "<a href=$subitem><li>$item</li></a>";
 		}
 	}
-	
-	echo "2 ^ 5 = ".power(2, 5);
+	$str .= "</ul>";
+	echo $str;
 	
 	//Задание 7
 	echo "<hr/>";
-	$hour = date('H');
-	$minute = date('i');
-	echo "$hour : $minute<br/>";
-	$str = "$hour час";
-	if($hour >= 11 && $hour <= 14) {
-		$str = $str."ов";
-	} else {
-		$t = $hour % 10;
-		if($t == 0 || $t >= 5 && $t <= 9) {
-			$str = $str."ов";
-		} else if($t >= 2 && $t <= 4) {
-			$str = $str."а";
+	for($i = 0; $i < 10; print $i, $i++) {}
+	
+	//Задание 8
+	echo "<hr/>";
+	$str = "";
+	foreach($regions as $region => $cities) {
+		$str .= "$region:<br/>";
+		foreach($cities as $city) {
+			if(mb_substr($city, 0, 1) == "К") {
+				$str .= "$city, ";
+			}
 		}
-	}
-	$str = $str." $minute минут";
-	if($minute < 11 || $minute > 14) {
-		$t = $minute % 10;
-		if($t >= 2 && $t <= 4) {
-			$str = $str."ы";
-		} else if($t == 1) {
-			$str = $str."а";
-		}
+		$str = mb_substr($str, 0, mb_strlen($str) - 2);	//Уберем лишнюю запятую в конце строки
+		$str .= ".<br/>";
 	}
 	echo $str;
+	
+	//Задание 9
+	echo "<hr/>";
+	
+	function translitAndSpacesDel($str) {
+		return replaceSpacesWithUnderscore(translit($str));
+	}
+	
+	echo translitAndSpacesDel("Лошманов Антон Юрьевич");
 ?>
