@@ -1,0 +1,41 @@
+.admin {
+    width: 50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+	margin-top: 10px;
+}
+
+.images {
+    width: 100%;
+    min-height: 500px;
+    position: relative;
+}
+
+.image {
+    width: 30%;
+    height: 100px;
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.image:nth-child(3n) {
+    margin-right: 0;
+}
+
+.card {
+    width: 50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+	margin-top: 10px;
+}
+
+.card img {
+	width: 100%;
+}
+
+.modal-body img {
+	width: 100%;
+}
