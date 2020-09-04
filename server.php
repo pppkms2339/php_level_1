@@ -23,15 +23,25 @@
 		$func = 'image'.$ext; // Получаем функция для сохранения результата
 		return $func($img_o, $ouput_file); // Сохраняем изображение
 	}
+	
 	//Сохраняем загруженное изображение в исходном размере
-	$path = "big/".$_FILES['file']['name'];
+	$path = $_SERVER["DOCUMENT_ROOT"]."/big/".$_FILES['file']['name'];
 	if(move_uploaded_file($_FILES['file']['tmp_name'], $path)){
 		//Сохраненное изображение уменьшаем до ширины в 100 пикселей
-		resize($path, "small/".$_FILES['file']['name'], 100);
-		//Возвращаемся на ту страницу, откуда был вызов
-		$page = substr($_SERVER['HTTP_REFERER'], strrpos($_SERVER['HTTP_REFERER'], '/') + 1);
-		header("Location: $page");
-		//header("Location: $_SERVER['HTTP_REFERER']");
+		resize($path, $_SERVER["DOCUMENT_ROOT"]."/small/".$_FILES['file']['name'], 100);
+		//Сохраняем информацию в БД
+		include 'dataBaseConnect.php';
+		$fileName = "'".$_FILES['file']['name']."'";
+		$fileSize = (int)($_FILES['file']['size']);
+		$sql = "INSERT INTO image (name, size) VALUES ($fileName, $fileSize)";
+		if (mysqli_query($link, $sql)) {
+			mysqli_close($link);
+			//Возвращаемся на ту страницу, откуда был вызов
+			$page = $_SERVER['HTTP_REFERER'];
+			header("Location: $page");
+		} else {
+			echo "Error: ".$str."<br>".mysqli_error($link);
+		}
 	}
 	else{
 		echo "Ошибка при загрузке файла";
